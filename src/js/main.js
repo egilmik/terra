@@ -3,6 +3,7 @@ var player = {
     nrPetriDishes: 1,
 };
 
+var baseValuePetri = 0.1;
 var baseCostPetri = 1;
 
 function getPetriDishCost(){
@@ -54,6 +55,6 @@ setInterval(function () {
       loadGame();
       firstTime = false;
     }
-    player.bacteria += player.nrPetriDishes;
+    player.bacteria += player.nrPetriDishes * baseValuePetri;
     updateBacteriaUI();
 }, 1000);
