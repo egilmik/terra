@@ -3,13 +3,10 @@ var player = {
     nrPetriDishes: 1,
 };
 
-/*document.getElementById("click").onclick = function() {
-    clicks++;
-    update_total_clicks(); //updates the text
-};*/
+var baseCostPetri = 1;
 
 function getPetriDishCost(){
-  return Math.pow(2, player.nrPetriDishes);
+  return baseCostPetri * Math.pow(player.nrPetriDishes,1.15);
 }
 document.getElementById("buy_petri_dish").onclick =    function() {
     if (player.bacteria < getPetriDishCost()) {
@@ -20,13 +17,17 @@ document.getElementById("buy_petri_dish").onclick =    function() {
     updateBacteriaUI();
 };
 
+document.getElementById("clear_save").onclick = function(){
+    clearSave();
+}
+
 function updateBacteriaUI(){
   var e = document.getElementById("clicks_per_second");
-  e.innerHTML = 'Bacteria per second: ' + player.nrPetriDishes;
+  e.innerHTML = 'Bacteria per second: ' + player.nrPetriDishes.toFixed(2);
   var e2 = document.getElementById("buy_petri_dish");
-  e2.innerHTML = 'Buy a petri dish for ' + getPetriDishCost();
+  e2.innerHTML = 'Buy a petri dish for ' + getPetriDishCost().toFixed(2);
   var e = document.getElementById("total_clicks");
-  e.innerHTML = 'Bacteria: ' + player.bacteria;
+  e.innerHTML = 'Bacteria: ' + player.bacteria.toFixed(2);
 
   document.getElementById("nr_pertri_dishes").innerHTML = player.nrPetriDishes;
 
@@ -39,6 +40,10 @@ function loadGame() {
 
 function saveGame() {
     localStorage['terra_save'] = btoa(JSON.stringify(player));
+}
+
+function clearSave(){
+  localStorage.clear();
 }
 
 setInterval(function () { saveGame(); }, 10000);
