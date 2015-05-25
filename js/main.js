@@ -1,7 +1,4 @@
 document.getElementById("buy_petri_dish").onclick =    function() {
-    if (canByPetriDish()) {
-        return alert('need more bacteria.');
-    }
     butPetriDish();
     updateUI();
 };
@@ -11,10 +8,16 @@ document.getElementById("clear_save").onclick = function(){
 }
 
 function updateUI(){
+  updateButtonUI();
+
   setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(1));
   setElementText("buy_petri_dish",'Buy a petri dish for ' + getPetriDishCost().toFixed(1));
   setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(1));
   setElementText("nr_pertri_dishes", player.nrPetriDishes);
+}
+
+function updateButtonUI(){
+    document.getElementById("buy_petri_dish").disabled = canByPetriDish();
 }
 
 function setElementText(element, text){
