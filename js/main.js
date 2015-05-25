@@ -11,15 +11,14 @@ document.getElementById("clear_save").onclick = function(){
 }
 
 function updateBacteriaUI(){
-  var e = document.getElementById("clicks_per_second");
-  e.innerHTML = 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(1);
-  var e2 = document.getElementById("buy_petri_dish");
-  e2.innerHTML = 'Buy a petri dish for ' + getPetriDishCost().toFixed(1);
-  var e = document.getElementById("total_clicks");
-  e.innerHTML = 'Bacteria: ' + player.bacteria.toFixed(1);
+  setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(1));
+  setElementText("buy_petri_dish",'Buy a petri dish for ' + getPetriDishCost().toFixed(1));
+  setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(1));
+  setElementText("nr_pertri_dishes", player.nrPetriDishes);
+}
 
-  document.getElementById("nr_pertri_dishes").innerHTML = player.nrPetriDishes;
-
+function setElementText(element, text){
+    document.getElementById(element).innerHTML = text;
 }
 function loadGame() {
   if (!localStorage['terra_save']) return;
