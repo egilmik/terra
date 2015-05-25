@@ -1,20 +1,8 @@
-var player = {
-    bacteria: 0,
-    nrPetriDishes: 1,
-};
-
-var baseValuePetri = 0.1;
-var baseCostPetri = 1;
-
-function getPetriDishCost(){
-  return baseCostPetri * Math.pow(player.nrPetriDishes,1.15);
-}
 document.getElementById("buy_petri_dish").onclick =    function() {
-    if (player.bacteria < getPetriDishCost()) {
+    if (canByPetriDish()) {
         return alert('need more bacteria.');
     }
-    player.bacteria -= getPetriDishCost();
-    player.nrPetriDishes++;
+    butPetriDish();
     updateBacteriaUI();
 };
 
@@ -47,17 +35,22 @@ function clearSave(){
   localStorage.clear();
 }
 
-setInterval(function () { saveGame(); }, 10000);
-
 var firstTime = true;
-setInterval(function () {
-    if(firstTime){
-      loadGame();
-      firstTime = false;
-    }
-    player.bacteria += player.nrPetriDishes * baseValuePetri;
-    updateBacteriaUI();
-}, 1000);
+
+function start(){
+  setInterval(function () {
+      if(firstTime){
+        loadGame();
+        firstTime = false;
+      }
+      onestep();
+      updateBacteriaUI();
+  }, 1000);
+
+  setInterval(function () {
+      saveGame();
+  }, 10000);
+}
 
 function loadScript(url, callback) {
     // Adding the script tag to the head as suggested before
@@ -74,3 +67,5 @@ function loadScript(url, callback) {
     // Fire the loading
     head.appendChild(script);
 }
+
+loadScript("js/game.js", start());
