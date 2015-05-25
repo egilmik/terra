@@ -12,11 +12,11 @@ document.getElementById("clear_save").onclick = function(){
 
 function updateBacteriaUI(){
   var e = document.getElementById("clicks_per_second");
-  e.innerHTML = 'Bacteria per second: ' + player.nrPetriDishes.toFixed(2);
+  e.innerHTML = 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(1);
   var e2 = document.getElementById("buy_petri_dish");
-  e2.innerHTML = 'Buy a petri dish for ' + getPetriDishCost().toFixed(2);
+  e2.innerHTML = 'Buy a petri dish for ' + getPetriDishCost().toFixed(1);
   var e = document.getElementById("total_clicks");
-  e.innerHTML = 'Bacteria: ' + player.bacteria.toFixed(2);
+  e.innerHTML = 'Bacteria: ' + player.bacteria.toFixed(1);
 
   document.getElementById("nr_pertri_dishes").innerHTML = player.nrPetriDishes;
 

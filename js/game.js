@@ -22,3 +22,7 @@ function butPetriDish(nr){
 function onestep(){
     player.bacteria += player.nrPetriDishes * baseValuePetri;
 }
+
+function getBacteriaPerSecond(){
+    return player.nrPetriDishes * baseValuePetri;
+}
