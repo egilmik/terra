@@ -1,16 +1,28 @@
 var player = {
     bacteria: 0,
     nrPetriDishes: 1,
+    nrHumans: 0,
 };
 
 var baseValuePetri = 0.1;
 var baseCostPetri = 1;
 
+var baseValueHuman = 1;
+var baseCostHuman = 100;
+
 function getPetriDishCost(){
     return baseCostPetri * Math.pow(player.nrPetriDishes,1.15);
 }
 
-function canByPetriDish(nr){
+function getHumanCost(){
+    return baseCostHuman * Math.pow(player.nrHumans,1.20);
+}
+
+function canBuyHuman(){
+    return player.bacteria < getHumanCost();
+}
+
+function canBuyPetriDish(nr){
     return player.bacteria < getPetriDishCost();
 }
 
@@ -19,10 +31,15 @@ function butPetriDish(nr){
     player.nrPetriDishes++;
 }
 
+function buyHuman(nr){
+    player.bacteria -= getHumanCost();
+    player.nrHumans++;
+}
+
 function onestep(){
-    player.bacteria += player.nrPetriDishes * baseValuePetri;
+    player.bacteria += getBacteriaPerSecond();
 }
 
 function getBacteriaPerSecond(){
-    return player.nrPetriDishes * baseValuePetri;
+    return (player.nrPetriDishes * baseValuePetri) + (player.nrHumans * baseValueHuman);
 }

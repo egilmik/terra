@@ -1,32 +1,47 @@
-
+<script src="js/thirdparty/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<div id="navbar-example">
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="buy" class="active">
-        <a href="#buy" id="buy-tab" role="tab" data-toggle="tab" aria-controls="buy" aria-expanded="true">Grow</a>
-      </li>
-      <li role="Laboratory" class="active">
-        <a href="#laboratory" id="laboratory-tab" role="tab" data-toggle="tab" aria-controls="laboratory" aria-expanded="true">Laboratory</a>
-      </li>
-    </ul>
-  </div>
+<script src="js/thirdparty/bootstrap.min.js"></script>
+
 <div class="container">
     <h1>Terra <small>transform the world</small></h1>
     <div id="total_bacterias">Bacteria: 0</div>
     <div id="bacterias_per_second">Bacteria per second: 0</div>
-
-    <table class="table">
-        <tr>
-            <td>
-                Petri dishes <small id="nr_pertri_dishes"></small>
-            </td>
-            <td>
-                <button id="buy_petri_dish" type="button" class="btn btn-success">Buy a petri dish for 1</button>
-            </td>
-        </tr>
-    </table>
 </div>
 <div class="container">
   <button id="clear_save" type="button" class="btn btn-success">Clear save</button>
+</div>
+</p>
+<div class="container">
+  <div id="navbar" class="tabbable">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#buy-content" data-toggle="tab">Grow</a></li>
+        <li><a href="#lab-content" data-toggle="tab">Laboratory</a></li>
+      </ul>
+      <div id="tabContent" class="tab-content">
+        <div class="tab-pane active" id="buy-content">
+          <table class="table">
+              <tr>
+                  <td>
+                      Petri dishes <small id="nr_pertri_dishes"></small>
+                  </td>
+                  <td>
+                      <button id="buy_petri_dish" type="button" class="btn btn-success">Buy a petri dish for 1</button>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                      Humans <small id="nr_humans"></small>
+                  </td>
+                  <td>
+                      <button id="buy_human" type="button" class="btn btn-success">Buy a human for 10</button>
+                  </td>
+              </tr>
+          </table>
+        </div>
+        <div class="tab-pane" id="lab-content">
+          This is the Laboratory
+        </div>
+      </div>
+    </div>
 </div>
 <script src="js/main.js"></script>

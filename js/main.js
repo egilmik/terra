@@ -3,6 +3,11 @@ document.getElementById("buy_petri_dish").onclick =    function() {
     updateUI();
 };
 
+document.getElementById("buy_human").onclick = function(){
+    buyHuman();
+    updateUI();
+}
+
 document.getElementById("clear_save").onclick = function(){
     clearSave();
 }
@@ -14,10 +19,13 @@ function updateUI(){
   setElementText("buy_petri_dish",'Buy a petri dish for ' + getPetriDishCost().toFixed(1));
   setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(1));
   setElementText("nr_pertri_dishes", player.nrPetriDishes);
+  setElementText("nr_humans",player.nrHumans);
+  setElementText("buy_human",'Buy a human for ' + getHumanCost().toFixed(1));
 }
 
 function updateButtonUI(){
-    document.getElementById("buy_petri_dish").disabled = canByPetriDish();
+    document.getElementById("buy_petri_dish").disabled = canBuyPetriDish();
+    document.getElementById("buy_human").disabled = canBuyHuman();
 }
 
 function setElementText(element, text){
