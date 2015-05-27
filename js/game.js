@@ -2,7 +2,9 @@ var player = {
     bacteria: 0,
     nrPetriDishes: 1,
     nrHumans: 0,
+    upgrades: []
 };
+
 
 var baseValuePetri = 0.1;
 var baseCostPetri = 1;

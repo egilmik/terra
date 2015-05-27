@@ -14,6 +14,7 @@ document.getElementById("clear_save").onclick = function(){
 
 function updateUI(){
   updateButtonUI();
+  updateLaboratoryUI();
 
   setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(1));
   setElementText("buy_petri_dish",'Buy a petri dish for ' + getPetriDishCost().toFixed(1));
@@ -26,6 +27,25 @@ function updateUI(){
 function updateButtonUI(){
     document.getElementById("buy_petri_dish").disabled = canBuyPetriDish();
     document.getElementById("buy_human").disabled = canBuyHuman();
+}
+
+function updateLaboratoryUI(){
+    var table = document.getElementById("laboratory-table").getElementsByTagName("tbody")[0];
+    var nrRows = table.rows.length;
+    if(nrRows < upgradeList.length){
+        console.log("init laboratory UI");
+        initLaboratoryUI(table);
+    }
+}
+
+function initLaboratoryUI(table){
+  var arrayLength = upgradeList.length;
+      for (var i = 0; i < arrayLength; i++) {
+          var upgrade = upgradeList[i];
+          var newRow = table.insertRow(i);
+          var newCell = newRow.insertCell(0);
+          newCell.innerHTML = '<button id=\"buy_' + upgrade.id + '\" type=\"button\" class=\"btn btn-success\">' + upgrade.text + '</button>';
+      }
 }
 
 function setElementText(element, text){
@@ -78,4 +98,6 @@ function loadScript(url, callback) {
     head.appendChild(script);
 }
 
-loadScript("js/game.js", start());
+
+loadScript("js/game.js");
+loadScript("js/upgrades.js",start())
