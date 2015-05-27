@@ -32,20 +32,26 @@ function updateButtonUI(){
 function updateLaboratoryUI(){
     var table = document.getElementById("laboratory-table").getElementsByTagName("tbody")[0];
     var nrRows = table.rows.length;
-    if(nrRows < upgradeList.length){
+    if(nrRows < getNumberOfUpgrades()){
         console.log("init laboratory UI");
         initLaboratoryUI(table);
     }
+    for(var key in upgradeMap){
+      var upgrade = upgradeMap[key];
+      document.getElementById("buy_"+ upgrade.id).disabled = canBuyUpgrade(upgrade.id) || !ownsUpgrade(upgrade.id);
+    }
+
 }
 
 function initLaboratoryUI(table){
-  var arrayLength = upgradeList.length;
-      for (var i = 0; i < arrayLength; i++) {
-          var upgrade = upgradeList[i];
-          var newRow = table.insertRow(i);
-          var newCell = newRow.insertCell(0);
-          newCell.innerHTML = '<button id=\"buy_' + upgrade.id + '\" type=\"button\" class=\"btn btn-success\">' + upgrade.text + '</button>';
-      }
+  var counter = 0;
+  for(var key in upgradeMap){
+    var upgrade = upgradeMap[key];
+    var newRow = table.insertRow(counter);
+    var newCell = newRow.insertCell(0);
+    newCell.innerHTML = '<button id=\"buy_' + upgrade.id + '\" type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
+    counter++;
+  }
 }
 
 function setElementText(element, text){
@@ -62,7 +68,8 @@ function saveGame() {
 }
 
 function clearSave(){
-  localStorage.clear();
+  player = new EmptyPlayer();
+  localStorage['terra_save'] = btoa(JSON.stringify(player));
 }
 
 var firstTime = true;

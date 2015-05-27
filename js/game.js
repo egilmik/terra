@@ -1,10 +1,11 @@
-var player = {
-    bacteria: 0,
-    nrPetriDishes: 1,
-    nrHumans: 0,
-    upgrades: []
-};
+var EmptyPlayer =  function(){
+    this.bacteria = 0;
+    this.nrPetriDishes = 1;
+    this.nrHumans = 0;
+    this.upgrades = ["a","b"];
+}
 
+var player = new EmptyPlayer();
 
 var baseValuePetri = 0.1;
 var baseCostPetri = 1;
@@ -17,7 +18,7 @@ function getPetriDishCost(){
 }
 
 function getHumanCost(){
-    return baseCostHuman * Math.pow(player.nrHumans,1.20);
+    return baseCostHuman * Math.pow(player.nrHumans+1,1.20);
 }
 
 function canBuyHuman(){
