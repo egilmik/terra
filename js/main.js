@@ -39,7 +39,7 @@ function updateLaboratoryUI(){
     for(var key in upgradeMap){
       var upgrade = upgradeMap[key];
       if(!ownsUpgrade(upgrade.id)){
-        document.getElementById("buy_"+ upgrade.id).disabled = canBuyUpgrade(upgrade.id);
+        document.getElementById(upgrade.id).disabled = canBuyUpgrade(upgrade.id);
       }
     }
 
@@ -51,14 +51,14 @@ function initLaboratoryUI(table){
     var upgrade = upgradeMap[key];
     var newRow = table.insertRow(counter);
     var newCell = newRow.insertCell(0);
-    newCell.innerHTML = '<button id=\"buy_' + upgrade.id + '\" type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
-    document.getElementById("buy_" + upgrade.id).onclick = function(){
-        buyUpgrade(upgrade.id);
-        document.getElementById("buy_" + upgrade.id).disabled = true;
+    newCell.innerHTML = '<button id=' + upgrade.id +' type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
+    document.getElementById(upgrade.id).onclick = function(){
+        buyUpgrade(this.id);
+        document.getElementById(this.id).disabled = true;
     }
 
     if(ownsUpgrade(upgrade.id)){
-      document.getElementById("buy_" + upgrade.id).disabled = true;
+      document.getElementById(upgrade.id).disabled = true;
     }
 
     counter++;
@@ -95,7 +95,7 @@ function start(){
       }
       onestep();
       updateUI();
-  }, 1000);
+  }, 10);
 
   setInterval(function () {
       saveGame();

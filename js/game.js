@@ -54,16 +54,25 @@ function onestep(){
 }
 
 function getBacteriaPerSecond(){
+    var globalMultiplier = getMultiplierForId("global");
+    var petriBacteria = (player.nrPetriDishes * (petriDish.value * getMultiplierForId("petriDish")));
+    var humanBacteria = (player.nrHumans * (human.value*getMultiplierForId("human")));
+
+    return (petriBacteria + humanBacteria ) * globalMultiplier;
+}
+
+function getMultiplierForId(id){
     var multiplier = 1;
     for(var i = 0; i < player.upgrades.length; i++){
-        var id = player.upgrades[i];
-        var upgrade = getUpgrade(id);
+        var playerUpgradeId = player.upgrades[i];
+        var upgrade = getUpgrade(playerUpgradeId);
         if(upgrade != null){
-          multiplier += (upgrade.multiplier - 1);
+          if(upgrade.parent == id){
+            multiplier += (upgrade.multiplier - 1);
+          }
         }
     }
-
-    return ((player.nrPetriDishes * petriDish.value) + (player.nrHumans * human.value)) * multiplier;
+    return multiplier;
 }
 
 function ownsUpgrade(id){
