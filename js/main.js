@@ -16,12 +16,12 @@ function updateUI(){
   updateButtonUI();
   updateLaboratoryUI();
 
-  setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(1));
-  setElementText("buy_petri_dish",'Buy a petri dish for ' + getPetriDishCost().toFixed(1));
-  setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(1));
+  setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
+  setElementText("buy_petri_dish",'Buy a petri dish for ' + getPetriDishCost().toFixed(0));
+  setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
   setElementText("nr_pertri_dishes", player.nrPetriDishes);
   setElementText("nr_humans",player.nrHumans);
-  setElementText("buy_human",'Buy a human for ' + getHumanCost().toFixed(1));
+  setElementText("buy_human",'Buy a human for ' + getHumanCost().toFixed(0));
 }
 
 function updateButtonUI(){
@@ -54,6 +54,11 @@ function initLaboratoryUI(table){
     newCell.innerHTML = '<button id=\"buy_' + upgrade.id + '\" type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
     document.getElementById("buy_" + upgrade.id).onclick = function(){
         buyUpgrade(upgrade.id);
+        document.getElementById("buy_" + upgrade.id).disabled = true;
+    }
+
+    if(ownsUpgrade(upgrade.id)){
+      document.getElementById("buy_" + upgrade.id).disabled = true;
     }
 
     counter++;
@@ -90,7 +95,7 @@ function start(){
       }
       onestep();
       updateUI();
-  }, 100);
+  }, 1000);
 
   setInterval(function () {
       saveGame();

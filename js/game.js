@@ -1,24 +1,24 @@
 var EmptyPlayer =  function(){
-    this.bacteria = 0;
-    this.nrPetriDishes = 1;
+    this.bacteria = 50;
+    this.nrPetriDishes = 0;
     this.nrHumans = 0;
-    this.upgrades = ["a","b"];
+    this.upgrades = [];
 }
 
 var player = new EmptyPlayer();
 
-var baseValuePetri = 0.1;
-var baseCostPetri = 1;
+var baseValuePetri = 1;
+var baseCostPetri = 10;
 
-var baseValueHuman = 1;
-var baseCostHuman = 100;
+var baseValueHuman = 10;
+var baseCostHuman = 1000;
 
 function getPetriDishCost(){
-    return baseCostPetri * Math.pow(player.nrPetriDishes,1.15);
+    return baseCostPetri * Math.pow(1.3,player.nrPetriDishes);
 }
 
 function getHumanCost(){
-    return baseCostHuman * Math.pow(player.nrHumans+1,1.20);
+    return baseCostHuman * Math.pow(1.20,player.nrHumans);
 }
 
 function canBuyHuman(){
