@@ -38,7 +38,9 @@ function updateLaboratoryUI(){
     }
     for(var key in upgradeMap){
       var upgrade = upgradeMap[key];
-      document.getElementById("buy_"+ upgrade.id).disabled = canBuyUpgrade(upgrade.id) || !ownsUpgrade(upgrade.id);
+      if(!ownsUpgrade(upgrade.id)){
+        document.getElementById("buy_"+ upgrade.id).disabled = canBuyUpgrade(upgrade.id);
+      }
     }
 
 }
@@ -50,6 +52,10 @@ function initLaboratoryUI(table){
     var newRow = table.insertRow(counter);
     var newCell = newRow.insertCell(0);
     newCell.innerHTML = '<button id=\"buy_' + upgrade.id + '\" type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
+    document.getElementById("buy_" + upgrade.id).onclick = function(){
+        buyUpgrade(upgrade.id);
+    }
+
     counter++;
   }
 }
@@ -57,19 +63,21 @@ function initLaboratoryUI(table){
 function setElementText(element, text){
     document.getElementById(element).innerHTML = text;
 }
+
+var saveVariable = "terra_save";
 function loadGame() {
-  if (!localStorage['terra_save']) return;
-    var save_data = JSON.parse(atob(localStorage['terra_save']));
+  if (!localStorage.getItem(saveVariable)) return;
+    var save_data = JSON.parse(localStorage.getItem(saveVariable));
     player = save_data;
 }
 
 function saveGame() {
-    localStorage['terra_save'] = btoa(JSON.stringify(player));
+    localStorage.setItem(saveVariable,JSON.stringify(player));
 }
 
 function clearSave(){
   player = new EmptyPlayer();
-  localStorage['terra_save'] = btoa(JSON.stringify(player));
+  saveGame();
 }
 
 var firstTime = true;
@@ -82,7 +90,7 @@ function start(){
       }
       onestep();
       updateUI();
-  }, 1000);
+  }, 100);
 
   setInterval(function () {
       saveGame();

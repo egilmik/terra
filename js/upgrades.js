@@ -31,14 +31,11 @@ function getNumberOfUpgrades(){
   return count;
 }
 
-function ownsUpgrade(id){
-    return player.upgrades.indexOf(id) > -1;
-}
-
 function buyUpgrade(id){
     var upgrade = getUpgrade(id);
     if(upgrade != null){
         player.bacteria -= upgrade.cost;
+        player.upgrades.push(id);
         return true;
     } else {
       console.log("Could not find id : " + id + " in buyUpgrade");

@@ -44,5 +44,18 @@ function onestep(){
 }
 
 function getBacteriaPerSecond(){
-    return (player.nrPetriDishes * baseValuePetri) + (player.nrHumans * baseValueHuman);
+    var multiplier = 1;
+    for(var i = 0; i < player.upgrades.length; i++){
+        var id = player.upgrades[i];
+        var upgrade = getUpgrade(id);
+        if(upgrade != null){
+          multiplier += (upgrade.multiplier - 1);
+        }
+    }
+
+    return ((player.nrPetriDishes * baseValuePetri) + (player.nrHumans * baseValueHuman)) * multiplier;
+}
+
+function ownsUpgrade(id){
+    return player.upgrades.indexOf(id) > -1;
 }
