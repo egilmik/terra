@@ -11,8 +11,9 @@ var upgradeBiggerPetriDish = new Upgrade("petriDish","biggerDish",1.1,100, "Bigg
 var upgraderWaterShortage = new Upgrade("global", "noWater", 1.1, 10000, "Create a water shortage");
 var upgradeMap = {};
 
-upgradeMap[upgraderWaterShortage.id] = upgraderWaterShortage;
 upgradeMap[upgradeBiggerPetriDish.id] = upgradeBiggerPetriDish;
+upgradeMap[upgraderWaterShortage.id] = upgraderWaterShortage;
+
 
 function canBuyUpgrade(id){
   var upgrade = upgradeMap[id];

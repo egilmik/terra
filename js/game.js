@@ -7,18 +7,28 @@ var EmptyPlayer =  function(){
 
 var player = new EmptyPlayer();
 
-var baseValuePetri = 1;
-var baseCostPetri = 10;
+var Producer = function(name, multiplier,value,cost){
+  this.name = name;
+  this.multiplier = multiplier;
+  this.value = value;
+  this.cost = cost;
+};
 
-var baseValueHuman = 10;
-var baseCostHuman = 1000;
+Producer.prototype.getCost = function(nr) {
+  return this.cost * Math.pow(1.3,nr);
+};
+
+petriDish = new Producer("Petri dish",1.3,1,50);
+human = new Producer("Human",1.2,10,1000);
+
+var producerList = [petriDish, human];
 
 function getPetriDishCost(){
-    return baseCostPetri * Math.pow(1.3,player.nrPetriDishes);
+    return petriDish.getCost(player.nrPetriDishes);
 }
 
 function getHumanCost(){
-    return baseCostHuman * Math.pow(1.20,player.nrHumans);
+    return human.getCost(player.nrHumans);
 }
 
 function canBuyHuman(){
@@ -53,7 +63,7 @@ function getBacteriaPerSecond(){
         }
     }
 
-    return ((player.nrPetriDishes * baseValuePetri) + (player.nrHumans * baseValueHuman)) * multiplier;
+    return ((player.nrPetriDishes * petriDish.value) + (player.nrHumans * human.value)) * multiplier;
 }
 
 function ownsUpgrade(id){
