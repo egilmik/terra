@@ -22,7 +22,7 @@ document.getElementById("load_button").onclick = function(){
 
 function updateUI(){
   updateButtonUI();
-  updateLaboratoryUI();
+  //updateLaboratoryUI();
 
   setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
   setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));

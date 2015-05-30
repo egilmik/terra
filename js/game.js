@@ -13,10 +13,8 @@ function onestep(){
 
 function getBacteriaPerSecond(){
     var globalMultiplier = getMultiplierForId("global");
-    var petriBacteria = (petriDish.getNumberOwned() * (petriDish.value * getMultiplierForId("petriDish")));
-    var humanBacteria = (human.getNumberOwned() * (human.value*getMultiplierForId("human")));
 
-    return (petriBacteria + humanBacteria ) * globalMultiplier;
+    return (petriDish.getBacteriaPerSecond() + human.getBacteriaPerSecond() ) * globalMultiplier;
 }
 
 function getMultiplierForId(id){

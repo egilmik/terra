@@ -1,19 +1,17 @@
-var Upgrade = function(parent, id,multiplier,cost, text){
-    this.parent = parent;
+var Upgrade = function(id,multiplier,cost, text){
     this.id = id;
     this.cost = cost;
     this.multiplier = multiplier;
     this.text = text;
+};
+
+Upgrade.prototype.getCost = function(){
+    return this.cost;
 }
 
-
-var upgradeBiggerPetriDish = new Upgrade("petriDish","biggerDish",1.1,100, "Bigger petri dishes");
-var upgraderWaterShortage = new Upgrade("global", "noWater", 1.1, 10000, "Create a water shortage");
-var upgradeHotter = new Upgrade("global", "hotterlvl1", 1.1, 10000, "Increase the temperature with one degree");
+var upgradeHotter = new Upgrade("hotterlvl1", 1.1, 10000, "Increase the temperature with one degree");
 var upgradeMap = {};
 
-upgradeMap[upgradeBiggerPetriDish.id] = upgradeBiggerPetriDish;
-upgradeMap[upgraderWaterShortage.id] = upgraderWaterShortage;
 upgradeMap[upgradeHotter.id] = upgradeHotter;
 
 
