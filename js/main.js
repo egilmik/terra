@@ -1,3 +1,5 @@
+var updateRate = 200;
+
 document.getElementById("clear_save").onclick = function(){
     clearSave();
 }
@@ -135,7 +137,7 @@ function start(){
       }
       onestep();
       updateUI();
-  }, 1000);
+  }, updateRate);
 
   setInterval(function () {
       saveGame();
