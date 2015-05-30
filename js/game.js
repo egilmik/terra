@@ -13,25 +13,6 @@ function onestep(){
 }
 
 function getBacteriaPerSecond(){
-    var globalMultiplier = getMultiplierForId("global");
-
+    var globalMultiplier = 1;
     return (petriDish.getBacteriaPerSecond() + human.getBacteriaPerSecond() ) * globalMultiplier;
-}
-
-function getMultiplierForId(id){
-    var multiplier = 1;
-    for(var i = 0; i < player.upgrades.length; i++){
-        var playerUpgradeId = player.upgrades[i];
-        var upgrade = getUpgrade(playerUpgradeId);
-        if(upgrade != null){
-          if(upgrade.parent == id){
-            multiplier += (upgrade.multiplier - 1);
-          }
-        }
-    }
-    return multiplier;
-}
-
-function ownsUpgrade(id){
-    return player.upgrades.indexOf(id) > -1;
 }
