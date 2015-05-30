@@ -59,4 +59,5 @@ Producer.prototype.getBacteriaPerSecond = function(){
 
 petriDish = new Producer("petriDish","Petri dish",1.3,1,50);
 human = new Producer("human","Human",1.2,10,1000);
-var producerList = [petriDish, human];
+swamp = new Producer("swamp", "Swamp", 1.2,100,10000);
+var producerList = [petriDish, human, swamp];
