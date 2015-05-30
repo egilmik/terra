@@ -12,6 +12,35 @@ document.getElementById("load_button").onclick = function(){
     loadGame();
 }
 
+function initLaboratoryUI(){
+    producerList.forEach(function(entry){
+      entry.availableUpgrades.forEach(function(upgrade){
+        document.getElementById("")
+        var table = document.getElementById("laboratory-table");
+        var nrRows = 0;
+        if( table.rows != null){
+          nrRows = table.rows.length;
+        }
+        var newRow = table.insertRow(nrRows);
+        var buttonCell = newRow.insertCell(0);
+        var buttonId = "buy_" + upgrade.id;
+        buttonCell.innerHTML = '<button id=' + buttonId +' type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
+
+        document.getElementById(buttonId).onclick =(function(){
+            var producer = entry;
+            var currentUpgrade = upgrade;
+            return function(){
+              producer.buyUpgrade(currentUpgrade,player);
+              this.disabled = true;
+              updateUI();
+            }
+
+        })();
+      });
+    });
+    updateUI();
+}
+
 function initBuyButtons(){
     producerList.forEach(function(entry){
         document.getElementById("")
@@ -47,10 +76,12 @@ function initBuyButtons(){
 
 function init(){
   initBuyButtons();
+  initLaboratoryUI();
 }
 
 function updateUI(){
-  //updateLaboratoryUI();
+  updateLaboratoryUI();
+
   setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
   setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
 
@@ -62,39 +93,16 @@ function updateUI(){
 }
 
 function updateLaboratoryUI(){
-    var table = document.getElementById("laboratory-table").getElementsByTagName("tbody")[0];
-    var nrRows = table.rows.length;
-    if(nrRows < getNumberOfUpgrades()){
-        console.log("init laboratory UI");
-        initLaboratoryUI(table);
-    }
-    for(var key in upgradeMap){
-      var upgrade = upgradeMap[key];
-      if(!ownsUpgrade(upgrade.id)){
-        document.getElementById(upgrade.id).disabled = canBuyUpgrade(upgrade.id);
-      }
-    }
-
-}
-
-function initLaboratoryUI(table){
-  var counter = 0;
-  for(var key in upgradeMap){
-    var upgrade = upgradeMap[key];
-    var newRow = table.insertRow(counter);
-    var newCell = newRow.insertCell(0);
-    newCell.innerHTML = '<button id=' + upgrade.id +' type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
-    document.getElementById(upgrade.id).onclick = function(){
-        buyUpgrade(this.id);
-        document.getElementById(this.id).disabled = true;
-    }
-
-    if(ownsUpgrade(upgrade.id)){
-      document.getElementById(upgrade.id).disabled = true;
-    }
-
-    counter++;
-  }
+    var table = document.getElementById("laboratory-table");
+    producerList.forEach(function(entry){
+      entry.availableUpgrades.forEach(function(upgrade){
+        if(!entry.hasUpgrade(upgrade)){
+          if(document.getElementById("buy_" + upgrade.id) != null){
+            document.getElementById("buy_" + upgrade.id).disabled = upgrade.getCost() > player.bacteria;
+          }
+        }
+      });
+    });
 }
 
 function setElementText(element, text){

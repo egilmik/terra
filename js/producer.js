@@ -30,10 +30,9 @@ Producer.prototype.setNumberOwned = function(nr){
     this.nrOwned = nr;
 }
 
-Producer.prototype.buyUpgrade = function(id,player){
-    var upgrade = this.getUpgrade(id);
+Producer.prototype.buyUpgrade = function(upgrade,player){
     player.bacteria -= upgrade.getCost();
-    boughtUpgrades.push(upgrade);
+    this.boughtUpgrades.push(upgrade);
 }
 
 Producer.prototype.getUpgrade = function(id){
@@ -48,9 +47,13 @@ Producer.prototype.getUpgrade = function(id){
 Producer.prototype.getMultiplier = function(){
     var multiplier = 1;
     for(var i = 0; i < this.boughtUpgrades.length; i++){
-      multiplier += this.boughtUpgrades[i].multiplier -1;
+      multiplier += this.boughtUpgrades[i].multiplier;
     }
     return multiplier;
+}
+
+Producer.prototype.hasUpgrade = function(upgrade){
+    return this.boughtUpgrades.indexOf(upgrade) > -1;
 }
 
 Producer.prototype.getBacteriaPerSecond = function(){
@@ -61,3 +64,8 @@ petriDish = new Producer("petriDish","Petri dish",1.3,1,50);
 human = new Producer("human","Human",1.2,10,1000);
 swamp = new Producer("swamp", "Swamp", 1.2,100,10000);
 var producerList = [petriDish, human, swamp];
+
+upgradePetriLvl1 = new Upgrade("petriDishLvl1",0.15,1000, "Bigger Petri dist");
+upgradePetriLvl2 = new Upgrade("petriDishLvl2",0.15,10000, "Even bigger Petri dist");
+petriDish.availableUpgrades.push(upgradePetriLvl1);
+petriDish.availableUpgrades.push(upgradePetriLvl2);
