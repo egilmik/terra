@@ -1,13 +1,3 @@
-document.getElementById("buy_petri_dish").onclick =    function() {
-    petriDish.buy(player);
-    updateUI();
-};
-
-document.getElementById("buy_human").onclick = function(){
-    human.buy(player);
-    updateUI();
-}
-
 document.getElementById("clear_save").onclick = function(){
     clearSave();
 }
@@ -20,21 +10,53 @@ document.getElementById("load_button").onclick = function(){
     loadGame();
 }
 
-function updateUI(){
-  updateButtonUI();
-  //updateLaboratoryUI();
+function initBuyButtons(){
+    producerList.forEach(function(entry){
+        document.getElementById("")
+        var table = document.getElementById("buy_table");
+        var nrRows = 0;
+        if( table.rows != null){
+          nrRows = table.rows.length;
+        }
+        var newRow = table.insertRow(nrRows);
+        var counterCell = newRow.insertCell(0);
 
-  setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
-  setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
-  setElementText("nr_pertri_dishes", petriDish.getNumberOwned());
-  setElementText("nr_humans",human.getNumberOwned());
+        var counterId = "nr_" + entry.id;
+        counterCell.innerHTML = "<small id=" + counterId + "></small>";
+
+        var nameCell = newRow.insertCell(1);
+        nameCell.innerHTML = entry.name;
+
+        var buttonCell = newRow.insertCell(2);
+        var buttonId = "buy_" + entry.id;
+        buttonCell.innerHTML = '<button id=' + buttonId +' type=\"button\" class=\"btn btn-success\">' + entry.name + " for " + name.cost+ '</button>';
+
+        document.getElementById(buttonId).onclick =(function(){
+            var producer = entry;
+            return function(){
+              producer.buy(player);
+              updateUI();
+            }
+
+        })();
+    });
+    updateUI();
 }
 
-function updateButtonUI(){
-    setElementText("buy_petri_dish",'Buy a petri dish for ' + petriDish.getCost().toFixed(0));
-    document.getElementById("buy_petri_dish").disabled = !petriDish.canBuy(player.bacteria);
-    setElementText("buy_human",'Buy a human for ' + human.getCost().toFixed(0));
-    document.getElementById("buy_human").disabled = !human.canBuy(player.bacteria);
+function init(){
+  initBuyButtons();
+}
+
+function updateUI(){
+  //updateLaboratoryUI();
+  setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
+  setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
+
+  producerList.forEach(function(entry){
+      setElementText("nr_" + entry.id, entry.getNumberOwned());
+      setElementText("buy_" + entry.id,'Buy a ' + entry.name + ' for ' + entry.getCost().toFixed(0));
+      document.getElementById("buy_" + entry.id).disabled = !entry.canBuy(player.bacteria);
+  });
 }
 
 function updateLaboratoryUI(){
@@ -108,6 +130,7 @@ function start(){
   setInterval(function () {
       if(firstTime){
         loadGame();
+        init();
         firstTime = false;
       }
       onestep();

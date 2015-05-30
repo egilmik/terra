@@ -1,4 +1,5 @@
-var Producer = function(name, multiplier,value,cost){
+var Producer = function(id,name, multiplier,value,cost){
+  this.id = id;
   this.name = name;
   this.multiplier = multiplier;
   this.value = value;
@@ -56,6 +57,6 @@ Producer.prototype.getBacteriaPerSecond = function(){
     return this.value * this.getMultiplier()* this.getNumberOwned();
 }
 
-petriDish = new Producer("Petri dish",1.3,1,50);
-human = new Producer("Human",1.2,10,1000);
+petriDish = new Producer("petriDish","Petri dish",1.3,1,50);
+human = new Producer("human","Human",1.2,10,1000);
 var producerList = [petriDish, human];
