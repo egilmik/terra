@@ -65,7 +65,10 @@ human = new Producer("human","Human",1.2,10,1000);
 swamp = new Producer("swamp", "Swamp", 1.2,100,10000);
 var producerList = [petriDish, human, swamp];
 
-upgradePetriLvl1 = new Upgrade("petriDishLvl1",0.15,1000, "Bigger Petri dist");
-upgradePetriLvl2 = new Upgrade("petriDishLvl2",0.15,10000, "Even bigger Petri dist");
+upgradePetriLvl1 = new Upgrade("petriDishLvl1",1,10000, "Bigger Petri dist");
+upgradePetriLvl2 = new Upgrade("petriDishLvl2",2,100000, "Even bigger Petri dist");
 petriDish.availableUpgrades.push(upgradePetriLvl1);
 petriDish.availableUpgrades.push(upgradePetriLvl2);
+
+upgradeHumanLvl1 = new Upgrade("humanLvl1",1,250000, "Humans shower less");
+human.availableUpgrades.push(upgradeHumanLvl1);
