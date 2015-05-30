@@ -7,45 +7,13 @@ var EmptyPlayer =  function(){
 
 var player = new EmptyPlayer();
 
-var Producer = function(name, multiplier,value,cost){
-  this.name = name;
-  this.multiplier = multiplier;
-  this.value = value;
-  this.cost = cost;
-};
-
-Producer.prototype.getCost = function(nr) {
-  return this.cost * Math.pow(1.3,nr);
-};
-
-petriDish = new Producer("Petri dish",1.3,1,50);
-human = new Producer("Human",1.2,10,1000);
-
-var producerList = [petriDish, human];
-
-function getPetriDishCost(){
-    return petriDish.getCost(player.nrPetriDishes);
-}
-
-function getHumanCost(){
-    return human.getCost(player.nrHumans);
-}
-
-function canBuyHuman(){
-    return player.bacteria < getHumanCost();
-}
-
-function canBuyPetriDish(nr){
-    return player.bacteria < getPetriDishCost();
-}
-
 function butPetriDish(nr){
-    player.bacteria -= getPetriDishCost();
+    player.bacteria -= petriDish.getCost(player.nrPetriDishes);
     player.nrPetriDishes++;
 }
 
 function buyHuman(nr){
-    player.bacteria -= getHumanCost();
+    player.bacteria -= human.getCost(player.nrHumans);
     player.nrHumans++;
 }
 
