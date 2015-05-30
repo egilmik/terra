@@ -58,7 +58,11 @@ function initGrowTab(){
         var nameCell = newRow.insertCell(1);
         nameCell.innerHTML = entry.name;
 
-        var buttonCell = newRow.insertCell(2);
+        var perSecondCell = newRow.insertCell(2);
+        var perSecondId = "per_second_" + entry.id;
+        perSecondCell.innerHTML = "<small id=" + perSecondId + "></small>";
+
+        var buttonCell = newRow.insertCell(3);
         var buttonId = "buy_" + entry.id;
         buttonCell.innerHTML = '<button id=' + buttonId +' type=\"button\" class=\"btn btn-success\">' + entry.name + " for " + name.cost+ '</button>';
 
@@ -87,6 +91,7 @@ function updateUI(){
 
   producerList.forEach(function(entry){
       setElementText("nr_" + entry.id, entry.getNumberOwned());
+      setElementText("per_second_" + entry.id, entry.getBacteriaPerSecond());
       setElementText("buy_" + entry.id,'Buy a ' + entry.name + ' for ' + entry.getCost().toFixed(0));
       document.getElementById("buy_" + entry.id).disabled = !entry.canBuy(player.bacteria);
   });
