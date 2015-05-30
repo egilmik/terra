@@ -41,7 +41,7 @@ function initLaboratoryUI(){
     updateUI();
 }
 
-function initBuyButtons(){
+function initGrowTab(){
     producerList.forEach(function(entry){
         document.getElementById("")
         var table = document.getElementById("buy_table");
@@ -75,7 +75,7 @@ function initBuyButtons(){
 }
 
 function init(){
-  initBuyButtons();
+  initGrowTab();
   initLaboratoryUI();
 }
 
