@@ -82,8 +82,7 @@ function loadGame() {
   if (!localStorage.getItem(saveVariable)) return;
     var save_data = JSON.parse(localStorage.getItem(saveVariable));
     player = save_data;
-    human.setNumberOwned(player.nrPetriDishes);
-    petriDish.setNumberOwned(player.nrHumans)
+    initPlayer();
 }
 
 function saveGame() {
@@ -92,8 +91,14 @@ function saveGame() {
     localStorage.setItem(saveVariable,JSON.stringify(player));
 }
 
+function initPlayer(){
+  human.setNumberOwned(player.nrHumans);
+  petriDish.setNumberOwned(player.nrPetriDishes);
+}
+
 function clearSave(){
   player = new EmptyPlayer();
+  initPlayer();
   saveGame();
 }
 
