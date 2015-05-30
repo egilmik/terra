@@ -1,10 +1,10 @@
 document.getElementById("buy_petri_dish").onclick =    function() {
-    butPetriDish();
+    petriDish.buy(player);
     updateUI();
 };
 
 document.getElementById("buy_human").onclick = function(){
-    buyHuman();
+    human.buy(player);
     updateUI();
 }
 
@@ -26,15 +26,15 @@ function updateUI(){
 
   setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
   setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
-  setElementText("nr_pertri_dishes", player.nrPetriDishes);
-  setElementText("nr_humans",player.nrHumans);
+  setElementText("nr_pertri_dishes", petriDish.getNumberOwned());
+  setElementText("nr_humans",human.getNumberOwned());
 }
 
 function updateButtonUI(){
-  setElementText("buy_petri_dish",'Buy a petri dish for ' + petriDish.getCost(player.nrPetriDishes).toFixed(0));
-    document.getElementById("buy_petri_dish").disabled = !petriDish.canBuy(player.bacteria, player.nrPetriDishes);
-    setElementText("buy_human",'Buy a human for ' + human.getCost(player.nrHumans).toFixed(0));
-    document.getElementById("buy_human").disabled = !human.canBuy(player.bacteria,player.nrHumans);
+    setElementText("buy_petri_dish",'Buy a petri dish for ' + petriDish.getCost().toFixed(0));
+    document.getElementById("buy_petri_dish").disabled = !petriDish.canBuy(player.bacteria);
+    setElementText("buy_human",'Buy a human for ' + human.getCost().toFixed(0));
+    document.getElementById("buy_human").disabled = !human.canBuy(player.bacteria);
 }
 
 function updateLaboratoryUI(){
@@ -82,9 +82,13 @@ function loadGame() {
   if (!localStorage.getItem(saveVariable)) return;
     var save_data = JSON.parse(localStorage.getItem(saveVariable));
     player = save_data;
+    human.setNumberOwned(player.nrPetriDishes);
+    petriDish.setNumberOwned(player.nrHumans)
 }
 
 function saveGame() {
+    player.nrPetriDishes = petriDish.getNumberOwned();
+    player.nrHumans = human.getNumberOwned();
     localStorage.setItem(saveVariable,JSON.stringify(player));
 }
 

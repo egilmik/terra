@@ -7,24 +7,14 @@ var EmptyPlayer =  function(){
 
 var player = new EmptyPlayer();
 
-function butPetriDish(nr){
-    player.bacteria -= petriDish.getCost(player.nrPetriDishes);
-    player.nrPetriDishes++;
-}
-
-function buyHuman(nr){
-    player.bacteria -= human.getCost(player.nrHumans);
-    player.nrHumans++;
-}
-
 function onestep(){
     player.bacteria += getBacteriaPerSecond();
 }
 
 function getBacteriaPerSecond(){
     var globalMultiplier = getMultiplierForId("global");
-    var petriBacteria = (player.nrPetriDishes * (petriDish.value * getMultiplierForId("petriDish")));
-    var humanBacteria = (player.nrHumans * (human.value*getMultiplierForId("human")));
+    var petriBacteria = (petriDish.getNumberOwned() * (petriDish.value * getMultiplierForId("petriDish")));
+    var humanBacteria = (human.getNumberOwned() * (human.value*getMultiplierForId("human")));
 
     return (petriBacteria + humanBacteria ) * globalMultiplier;
 }
