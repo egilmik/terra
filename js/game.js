@@ -2,6 +2,7 @@ var EmptyPlayer =  function(){
     this.bacteria = 50;
     this.nrPetriDishes = 0;
     this.nrHumans = 0;
+    this.nrSwamp = 0;
     this.upgrades = [];
 }
 

@@ -112,12 +112,14 @@ function loadGame() {
 function saveGame() {
     player.nrPetriDishes = petriDish.getNumberOwned();
     player.nrHumans = human.getNumberOwned();
+    player.nrSwamp = swamp.getNumberOwned();
     localStorage.setItem(saveVariable,JSON.stringify(player));
 }
 
 function initPlayer(){
   human.setNumberOwned(player.nrHumans);
   petriDish.setNumberOwned(player.nrPetriDishes);
+  swamp.setNumberOwned(player.nrSwamp);
 }
 
 function clearSave(){
