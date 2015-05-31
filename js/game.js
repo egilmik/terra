@@ -1,3 +1,5 @@
+var tickLenght = 1000;
+
 var EmptyPlayer =  function(){
     this.bacteria = 50;
 }
@@ -5,7 +7,7 @@ var EmptyPlayer =  function(){
 var player = new EmptyPlayer();
 
 function onestep(){
-    player.bacteria += getBacteriaPerSecond()/(200/updateRate);
+    player.bacteria += getBacteriaPerSecond()/(tickLenght/updateRate);
 }
 
 function getBacteriaPerSecond(){
