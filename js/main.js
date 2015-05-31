@@ -13,22 +13,25 @@ document.getElementById("load_button").onclick = function(){
 }
 
 function initLaboratoryUI(){
+    var table = document.getElementById("laboratory-table");
     producerList.forEach(function(entry){
+      var nrRows = 0;
+      if( table.rows != null){
+        nrRows = table.rows.length;
+      }
+      var producerRow = table.insertRow(nrRows);
+      var producerCell = producerRow.insertCell(-1);
+      producerCell.innerHTML = entry.name;
       entry.availableUpgrades.forEach(function(upgrade){
-        document.getElementById("")
-        var table = document.getElementById("laboratory-table");
-        var nrRows = 0;
-        if( table.rows != null){
-          nrRows = table.rows.length;
-        }
-        var newRow = table.insertRow(nrRows);
-        var buttonCell = newRow.insertCell(0);
+        var buttonCell = producerRow.insertCell(-1);
         var buttonId = "buy_" + upgrade.id;
-        var upgradeText = entry.name + ":" + upgrade.text + " for " + upgrade.cost + " increase growth with " + (upgrade.multiplier *100).toFixed(0) + "%";
+        var upgradeText = upgrade.text + " for " + upgrade.cost + "<br> increase base by " + (upgrade.multiplier *100).toFixed(0) + "%";
         if(entry.hasUpgrade(upgrade)){
             upgradeText = "(Bought) " + upgradeText;
         }
         buttonCell.innerHTML = '<button id=' + buttonId +' type=\"button\" class=\"btn btn-success\">' + upgradeText + '</button>';
+          document.getElementById(buttonId).disabled = entry.hasUpgrade(upgrade);
+
 
         document.getElementById(buttonId).onclick =(function(){
             var producer = entry;
