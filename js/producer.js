@@ -70,8 +70,8 @@ Producer.prototype.getBacteriaPerSecond = function(){
 }
 
 petriDish = new Producer("petriDish","Petri dish",1.2,1,25);
-human = new Producer("human","Human",1.2,5,1000);
-swamp = new Producer("swamp", "Swamp", 1.2,100,100000);
+human = new Producer("human","Human",1.2,5,500);
+swamp = new Producer("swamp", "Swamp", 1.2,100,50000);
 var producerList = [petriDish, human, swamp];
 
 upgradePetriLvl1 = new Upgrade("petriDishLvl1",1,500, "Bigger Petri dist");
@@ -81,5 +81,16 @@ petriDish.availableUpgrades.push(upgradePetriLvl1);
 petriDish.availableUpgrades.push(upgradePetriLvl2);
 petriDish.availableUpgrades.push(upgradePetriLvl3);
 
-upgradeHumanLvl1 = new Upgrade("humanLvl1",1,50000, "Humans shower less");
+upgradeHumanLvl1 = new Upgrade("humanLvl1",1,12000, "Humans shower less");
+upgradeHumanLvl2 = new Upgrade("humanLvl2",1,100000, "Humans shower once a life");
+upgradeHumanLvl3 = new Upgrade("humanLvl3",2,500000, "Showers are forbidden");
 human.availableUpgrades.push(upgradeHumanLvl1);
+human.availableUpgrades.push(upgradeHumanLvl2);
+human.availableUpgrades.push(upgradeHumanLvl3);
+
+upgradeSwampLvl1 = new Upgrade("swampLvl1",1,1200000, "Swamp thing");
+upgradeSwampLvl2 = new Upgrade("swampLvl2",1,10000000, "Even swampier");
+upgradeSwampLvl3 = new Upgrade("swampLvl3",2,50000000, "Swamps everywhere");
+swamp.availableUpgrades.push(upgradeSwampLvl1);
+swamp.availableUpgrades.push(upgradeSwampLvl2);
+swamp.availableUpgrades.push(upgradeSwampLvl3);
