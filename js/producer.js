@@ -69,13 +69,13 @@ Producer.prototype.getBacteriaPerSecond = function(){
     return this.value * this.getMultiplier()* this.getNumberOwned();
 }
 
-petriDish = new Producer("petriDish","Petri dish",1.3,1,25);
-human = new Producer("human","Human",1.2,10,1000);
-swamp = new Producer("swamp", "Swamp", 1.2,100,10000);
+petriDish = new Producer("petriDish","Petri dish",1.2,1,25);
+human = new Producer("human","Human",1.2,5,1000);
+swamp = new Producer("swamp", "Swamp", 1.2,100,100000);
 var producerList = [petriDish, human, swamp];
 
-upgradePetriLvl1 = new Upgrade("petriDishLvl1",1,10000, "Bigger Petri dist");
-upgradePetriLvl2 = new Upgrade("petriDishLvl2",2,100000, "Even bigger Petri dist");
+upgradePetriLvl1 = new Upgrade("petriDishLvl1",1,2500, "Bigger Petri dist");
+upgradePetriLvl2 = new Upgrade("petriDishLvl2",2,50000, "Even bigger Petri dist");
 petriDish.availableUpgrades.push(upgradePetriLvl1);
 petriDish.availableUpgrades.push(upgradePetriLvl2);
 
