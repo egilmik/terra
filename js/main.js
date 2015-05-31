@@ -127,6 +127,7 @@ function setElementText(element, text){
 }
 
 var firstTime = true;
+var lastTime = new Date();
 
 function start(){
   setInterval(function () {
@@ -135,13 +136,27 @@ function start(){
         init();
         firstTime = false;
       }
-      onestep();
+
+      now = new Date();
+      var elapsed = (now.getTime() - lastTime.getTime());
+
+      var tickCount = parseInt(elapsed/updateRate);
+      if(tickCount > 0){
+        lastTime = new Date();
+        for(var i = 0; i < tickCount; i++){
+            onestep();
+        }
+        updateUI();
+      }
+
+
+
       updateUI();
   }, updateRate);
 
   setInterval(function () {
       saveGame();
-  }, 10000);
+  }, 1000);
 }
 
 function loadScript(url, callback) {

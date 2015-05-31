@@ -2,9 +2,11 @@ var saveVariable = "terra_save";
 var countVariable = saveVariable + "_producer_count_";
 var upgradeVariable = saveVariable + "_producer_upgrade_list_";
 var bacteriaVariable = saveVariable + "_bacteria_count";
+var lastTimeVariable = saveVariable + "_last_time";
 
 function loadGame() {
   player.bacteria = parseInt(localStorage[bacteriaVariable]);
+  lastTime = new Date(JSON.parse(localStorage[lastTimeVariable]));
   producerList.forEach(function(entry){
       var count = parseInt(localStorage[countVariable + entry.id]);
       if(isNaN(count)){
@@ -23,6 +25,7 @@ function loadGame() {
 
 function saveGame() {
     localStorage[bacteriaVariable] = player.bacteria;
+    localStorage[lastTimeVariable] = JSON.stringify(lastTime);
     producerList.forEach(function(entry){
       localStorage[ countVariable + entry.id] = entry.getNumberOwned();
       var upgradeIds = [];
@@ -35,6 +38,7 @@ function saveGame() {
 
 function initPlayer(){
   player = new EmptyPlayer();
+  lastTime = new Date();
   producerList.forEach(function(entry){
     entry.setNumberOwned(0);
     entry.boughtUpgrades = [];
