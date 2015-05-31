@@ -91,7 +91,7 @@ function updateUI(){
 
   producerList.forEach(function(entry){
       setElementText("nr_" + entry.id, entry.getNumberOwned());
-      setElementText("per_second_" + entry.id, entry.getBacteriaPerSecond());
+      setElementText("per_second_" + entry.id, "+" + entry.getBacteriaPerSecond());
       setElementText("buy_" + entry.id,'Buy a ' + entry.name + ' for ' + entry.getCost().toFixed(0));
       document.getElementById("buy_" + entry.id).disabled = !entry.canBuy(player.bacteria);
   });
@@ -112,33 +112,6 @@ function updateLaboratoryUI(){
 
 function setElementText(element, text){
     document.getElementById(element).innerHTML = text;
-}
-
-var saveVariable = "terra_save";
-function loadGame() {
-  if (!localStorage.getItem(saveVariable)) return;
-    var save_data = JSON.parse(localStorage.getItem(saveVariable));
-    player = save_data;
-    initPlayer();
-}
-
-function saveGame() {
-    player.nrPetriDishes = petriDish.getNumberOwned();
-    player.nrHumans = human.getNumberOwned();
-    player.nrSwamp = swamp.getNumberOwned();
-    localStorage.setItem(saveVariable,JSON.stringify(player));
-}
-
-function initPlayer(){
-  human.setNumberOwned(player.nrHumans);
-  petriDish.setNumberOwned(player.nrPetriDishes);
-  swamp.setNumberOwned(player.nrSwamp);
-}
-
-function clearSave(){
-  player = new EmptyPlayer();
-  initPlayer();
-  saveGame();
 }
 
 var firstTime = true;
@@ -178,4 +151,5 @@ function loadScript(url, callback) {
 
 loadScript("js/game.js");
 loadScript("js/upgrades.js")
+loadScript("js/save.js")
 loadScript("js/producer.js",start())

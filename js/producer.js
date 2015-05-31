@@ -44,6 +44,15 @@ Producer.prototype.getUpgrade = function(id){
   return null;
 }
 
+Producer.prototype.initUpgrade = function(id){
+    var upgrade = this.getUpgrade(id);
+    if(upgrade != null){
+        this.boughtUpgrades.push(upgrade);
+    } else {
+      console.log("Could not init upgrade " + id);
+    }
+}
+
 Producer.prototype.getMultiplier = function(){
     var multiplier = 1;
     for(var i = 0; i < this.boughtUpgrades.length; i++){
@@ -60,7 +69,7 @@ Producer.prototype.getBacteriaPerSecond = function(){
     return this.value * this.getMultiplier()* this.getNumberOwned();
 }
 
-petriDish = new Producer("petriDish","Petri dish",1.3,1,50);
+petriDish = new Producer("petriDish","Petri dish",1.3,1,25);
 human = new Producer("human","Human",1.2,10,1000);
 swamp = new Producer("swamp", "Swamp", 1.2,100,10000);
 var producerList = [petriDish, human, swamp];
