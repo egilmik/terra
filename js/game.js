@@ -10,5 +10,10 @@ function onestep(){
 
 function getBacteriaPerSecond(){
     var globalMultiplier = 1;
-    return (petriDish.getBacteriaPerSecond() + human.getBacteriaPerSecond() ) * globalMultiplier;
+    var bacteria = 0;
+    producerList.forEach(function(entry){
+        bacteria += entry.getBacteriaPerSecond();
+    });
+
+    return bacteria * globalMultiplier;
 }
