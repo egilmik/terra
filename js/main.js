@@ -35,7 +35,7 @@ function initLaboratoryUI(){
             var currentUpgrade = upgrade;
             return function(){
               producer.buyUpgrade(currentUpgrade,player);
-              this.text = "(Bought) " + this.text;
+              this.innerText = "(Bought) " + this.innerText;
               this.disabled = true;
               updateUI();
             }

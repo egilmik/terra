@@ -5,7 +5,7 @@ var EmptyPlayer =  function(){
 var player = new EmptyPlayer();
 
 function onestep(){
-    player.bacteria += getBacteriaPerSecond()/(1000/updateRate);
+    player.bacteria += getBacteriaPerSecond()/(200/updateRate);
 }
 
 function getBacteriaPerSecond(){
