@@ -24,13 +24,18 @@ function initLaboratoryUI(){
         var newRow = table.insertRow(nrRows);
         var buttonCell = newRow.insertCell(0);
         var buttonId = "buy_" + upgrade.id;
-        buttonCell.innerHTML = '<button id=' + buttonId +' type=\"button\" class=\"btn btn-success\">' + upgrade.text + " for " + upgrade.cost+ '</button>';
+        var upgradeText = entry.name + ":" + upgrade.text + " for " + upgrade.cost + " increase growth with " + (upgrade.multiplier *100).toFixed(0) + "%";
+        if(entry.hasUpgrade(upgrade)){
+            upgradeText = "(Bought) " + upgradeText;
+        }
+        buttonCell.innerHTML = '<button id=' + buttonId +' type=\"button\" class=\"btn btn-success\">' + upgradeText + '</button>';
 
         document.getElementById(buttonId).onclick =(function(){
             var producer = entry;
             var currentUpgrade = upgrade;
             return function(){
               producer.buyUpgrade(currentUpgrade,player);
+              this.text = "(Bought) " + this.text;
               this.disabled = true;
               updateUI();
             }
@@ -86,7 +91,7 @@ function init(){
 function updateUI(){
   updateLaboratoryUI();
 
-  setElementText("bacterias_per_second", 'Bacteria per second: ' + getBacteriaPerSecond().toFixed(0));
+  setElementText("bacterias_per_second", 'Bacteria per second: ' + formatNumber(getBacteriaPerSecond().toFixed(0)));
   setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
 
   producerList.forEach(function(entry){
@@ -108,6 +113,10 @@ function updateLaboratoryUI(){
         }
       });
     });
+}
+
+function formatNumber(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
 function setElementText(element, text){
