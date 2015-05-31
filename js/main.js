@@ -92,12 +92,12 @@ function updateUI(){
   updateLaboratoryUI();
 
   setElementText("bacterias_per_second", 'Bacteria per second: ' + formatNumber(getBacteriaPerSecond().toFixed(0)));
-  setElementText("total_bacterias", 'Bacteria: ' + player.bacteria.toFixed(0));
+  setElementText("total_bacterias", 'Bacteria: ' + formatNumber(player.bacteria.toFixed(0)));
 
   producerList.forEach(function(entry){
       setElementText("nr_" + entry.id, entry.getNumberOwned());
       setElementText("per_second_" + entry.id, "+" + entry.getBacteriaPerSecond());
-      setElementText("buy_" + entry.id,'Buy a ' + entry.name + ' for ' + entry.getCost().toFixed(0));
+      setElementText("buy_" + entry.id,'Buy a ' + entry.name + ' for ' + formatNumber(entry.getCost().toFixed(0)));
       document.getElementById("buy_" + entry.id).disabled = !entry.canBuy(player.bacteria);
   });
 }
@@ -116,7 +116,7 @@ function updateLaboratoryUI(){
 }
 
 function formatNumber(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function setElementText(element, text){
